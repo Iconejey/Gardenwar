@@ -16,14 +16,11 @@ else:
 
 
 def receive(sock):
-	data = ''
-	while len(data) is 0 or data[-1] != '\t':
-		data += sock.recv(1).decode('utf-8')
-	return data.strip('\t')
+	return sock.recv(1024).decode('utf-8')
 
 
 def send(sock, data):
-	sock.send((data + '\t').encode('utf-8'))
+	sock.send(data.encode('utf-8'))
 
 
 def rotate(point, origin, angle):
@@ -53,11 +50,11 @@ def getEntities(data):
 		if len(players_data) is not 0:
 			for line in players_data.split('\n'):
 				name, image = line.split()[:2]
-				x, y, angle, mana, hp = [float(i) for i in line.split()[2:]]
-				players[name] = [(x, y), angle, mana, hp, image]
+				x, y, angle, hp = [float(i) for i in line.split()[2:]]
+				players[name] = [(x, y), angle, hp, image]
 
 	except Exception as e:
-		print(data)
+		print('\n' + data + '\n')
 		raise e
 	return bullets, players
 
@@ -145,11 +142,10 @@ def main():
 		s = keys[pg.K_s]
 		q = keys[pg.K_a]
 		d = keys[pg.K_d]
-		controls_data = str(mp) + ' ' + str(mx) + ' ' + str(my) + ' ' + str(z) + ' ' + str(s) + ' ' + str(q) + ' ' + str(d)
-		send(host_socket, controls_data)
+		send(host_socket, ''.join(str(e) + ' ' for e in (mp, mx, my, z, s, q, d)).strip())
 
 		for name in players:
-			pos, angle, mana, hp, image = players[name]
+			pos, angle, hp, image = players[name]
 
 			if hp < 1:
 				win.blit(images['dead' + image], pos)

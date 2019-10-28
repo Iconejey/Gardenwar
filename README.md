@@ -18,6 +18,13 @@ Si vous souhaitez rejoindre une partie, vous devrez entrer l'ip de l'hôte puis 
 alors un message du type "votre_pseuso joined the game". Le jeu commencera quand tous les joueurs auront
 rejoint la partie.
 
+**Règles**
+Chaque joueur est une plante en pot qui rêve d'être la décoration principale du jardin.
+Mais elle n'est pas la seule à convoiter cette place. Il faudra donc se battre.
+Avec le click gauche vous pouvez tirer des boules de terres pour casser les autres pots (il faut bien
+viser le pot et pas la plante !). Chaque pot nécessite dix boules de terre pour être cassé.
+Utilisez les touches ZQSD pour vous déplacer.
+
 
 IMPORTANT: vu que je suis un chacal il vaut mieux que l'hôte quite le jeu en premier sous risque de freeze
 tous les autres joueurs.

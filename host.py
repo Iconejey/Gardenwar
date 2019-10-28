@@ -16,14 +16,11 @@ else:
 
 
 def receive(sock):
-	data = ''
-	while len(data) is 0 or data[-1] != '\t':
-		data += sock.recv(1).decode('utf-8')
-	return data.strip('\t')
+	return sock.recv(1024).decode('utf-8')
 
 
 def send(sock, data):
-	sock.send((data + '\t').encode('utf-8'))
+	sock.send(data.encode('utf-8'))
 
 
 def rotate(point, origin, angle):
@@ -43,16 +40,17 @@ def getEntityData(bullets, players):
 	data = ''
 	for bullet in bullets:
 		# bullets[i] = [(x, y), (vx, vy), bounces]
-		(x, y), vel, bounces = bullet
-		data += str(x) + ' ' + str(y) + ' ' + str(bounces) + '\n'
+		# data = 'x, y, bounces\n'
+		pos, vel, bounces = bullet
+		data += ''.join(str(e) + ' ' for e in (*pos, bounces)) + '\n'
 
 	data = data.strip('\n') + '|'
 
 	for name in players:
 		# players[name] = [(x, y), (vx, vy), angle, mana, hp, image, socket]
-		(x, y), vel, angle, mana, hp, image = players[name][:6]
-		# data = 'name image x y vx vy angle mana\n'
-		data += name + ' ' + image + ' ' + str(x) + ' ' + str(y) + ' ' + str(angle) + ' ' + str(mana) + ' ' + str(hp) + '\n'
+		# data = 'name image x y angle hp\n'
+		pos, vel, angle, mana, hp, image = players[name][:6]
+		data += ''.join(str(e) + ' ' for e in (name, image, *pos, angle, hp)) + '\n'
 
 	return data.strip('\n')
 

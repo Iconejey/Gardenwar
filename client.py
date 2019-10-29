@@ -8,8 +8,6 @@ pg.init()
 
 # parce que sinon sur windows c'est flou
 if sys.platform == 'win32':
-	from ctypes import windll
-	windll.shcore.SetProcessDpiAwareness(1)
 	clear = lambda: os.system('cls')
 else:
 	clear = lambda: os.system('clear')

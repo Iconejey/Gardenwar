@@ -1,4 +1,7 @@
-import os
+import os, sys
+if sys.platform == 'win32':
+	from ctypes import windll
+	windll.shcore.SetProcessDpiAwareness(1)
 
 try:
 	import termcolor
